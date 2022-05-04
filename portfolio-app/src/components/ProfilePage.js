@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 
 function ProfilePage(props) {
   const [profile, setProfile] = useState([]);

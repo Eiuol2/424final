@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
-import axios from "axios";
 import SignupForm from "./SignupForm";
 
 function SignUp() {

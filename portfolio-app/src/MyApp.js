@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Home from "./Home";
-import Projects from "./Projects";
 import Resume from "./components/Resume";
-import Profile from "./Profile";
-import Navigation from "./Navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
-import FileUpload from "./fileupload";
 
 import "./styling/MyApp.css";
 import { Container, Row, Col, Nav, Navbar } from "react-bootstrap";
@@ -15,8 +9,6 @@ import {
   Switch,
   Route,
   Link,
-  useHistory,
-  BrowserRouter,
 } from "react-router-dom";
 import CreatePost2 from "./components/CreatePost2";
 import EditPost from "./components/EditPost";
@@ -30,7 +22,6 @@ import ProfilePage from "./components/ProfilePage";
 
 function MyApp() {
   const [cookies, setCookie, removeCookie] = useCookies(["auth_token"]);
-  const [show, setShow] = useState(false);
 
   function setToken(token) {
     setCookie("auth_token", token, { maxAge: 1800, path: "/" });

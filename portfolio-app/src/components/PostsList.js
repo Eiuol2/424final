@@ -32,7 +32,7 @@ function PostsList(props) {
       "http://localhost:5016/posts/delete-post/" + post._id,
       config
     );
-    if (response && response.status == 204) {
+    if (response && response.status === 204) {
       console.log("in response");
       const updated = posts.filter((p, i) => {
         return i !== index;

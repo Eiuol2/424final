@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useCookies } from "react-cookie";
 
 function CreatePost2(props) {
   const [postObject, setPostObject] = useState({

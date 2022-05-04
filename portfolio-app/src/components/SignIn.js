@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { useCookies } from "react-cookie";
-import axios from "axios";
 import LoginForm from "./LoginForm";
 
 function SignIn(props) {
@@ -26,26 +24,6 @@ function SignIn(props) {
   //     return false
   //   }
   // }
-
-  async function makePostCall(person) {
-    try {
-      const response = await axios.post("http://localhost:5016/users", person);
-      return response;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
-
-  async function makeDeleteCall(id) {
-    try {
-      const response = await axios.delete("http://localhost:5016/users/" + id);
-      return response;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
 
   return (
     <div>

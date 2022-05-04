@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { Viewer } from "@react-pdf-viewer/core"; // install this library
 // Plugins
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout"; // install this library
