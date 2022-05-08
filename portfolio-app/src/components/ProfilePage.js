@@ -15,7 +15,8 @@ function ProfilePage(props) {
       headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
     };
     axios
-      .get(url + "/profile/getprofile/", config)
+      // .get(url + "/profile/getprofile/", config)
+      .get("https://resumixapp.herokuapp.com/profile/getprofile/", config)
       .then((res) => {
         setProfile(res.data[0]);
       })
