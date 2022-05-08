@@ -37,7 +37,7 @@ function SignupForm(props) {
         pwd: user.pwd,
       };
       const response = await axios.post(
-        "https://resumixapp.herokuapp.com/users/signup",
+        "https://resumixapi.herokuapp.com/users/signup",
         signupObject
       );
       props.setToken(response.data);
