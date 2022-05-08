@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 var url;
 if (process.env.NODE_ENV == "production") {
-  url = "https://resumixapi.herokuapp.com"
+  url = "https://resumixapp.herokuapp.com"
 } else {
   url = "http://localhost:5016"
 }
