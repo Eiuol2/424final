@@ -31,7 +31,7 @@ function LoginForm(props) {
     try {
       const loginObject = { username: user.username, pwd: user.pwd };
       const response = await axios.post(
-        "https://resumixapp.herokuapp.com/users/login",
+        "https://resumixapi.herokuapp.com/users/login",
         loginObject
       );
       props.setToken(response.data);

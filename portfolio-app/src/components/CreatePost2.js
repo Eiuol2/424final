@@ -28,7 +28,7 @@ function CreatePost2(props) {
       "This is authorization before passing in: " + config.headers.Authorization
     );
     axios
-      .post("https://resumixapp.herokuapp.com/posts/create-post", posting, config)
+      .post("https://resumixapi.herokuapp.com/posts/create-post", posting, config)
       .then((res) => console.log(res.data));
     setPostObject({ title: "", description: "", content: "" });
   }
