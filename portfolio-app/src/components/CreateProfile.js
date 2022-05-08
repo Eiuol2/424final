@@ -46,7 +46,7 @@ function CreateProfile(props) {
         username: user.username,
       };
       const response = await axios.post(
-        "http://localhost:5016/profile/createprofile",
+        "https://resumixapp.herokuapp.com/profile/createprofile",
         profileObject
       );
       console.log("This is backend response: " + JSON.stringify(response.data));
