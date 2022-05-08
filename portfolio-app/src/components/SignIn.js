@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import LoginForm from "./LoginForm";
+import React, { useEffect } from "react"
+import LoginForm from "./LoginForm"
 
 function SignIn(props) {
   // useEffect(() => {
@@ -27,10 +27,10 @@ function SignIn(props) {
 
   return (
     <div>
-      <p>React Sign in page!</p>
+      {/* <p>React Sign in page!</p> */}
       <LoginForm setToken={props.setToken} />
     </div>
-  );
+  )
 }
 
-export default SignIn;
+export default SignIn
