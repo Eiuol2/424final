@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
+var url;
+if (process.env.NODE_ENV == "production") {
+  url = "https://resumixapi.herokuapp.com"
+} else {
+  url = "http://localhost:5016"
+}
+
 function LoginForm(props) {
   const [user, setUser] = useState({
     username: "",
@@ -31,7 +38,8 @@ function LoginForm(props) {
     try {
       const loginObject = { username: user.username, pwd: user.pwd };
       const response = await axios.post(
-        "https://resumixapi.herokuapp.com/users/login",
+        // "https://resumixapi.herokuapp.com/users/login",
+        url + "/users/login",
         loginObject
       );
       props.setToken(response.data);

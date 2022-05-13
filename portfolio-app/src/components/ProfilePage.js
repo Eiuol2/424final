@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-/*
+
 var url;
 if (process.env.NODE_ENV == "production") {
-  url = "https://resumixapp.herokuapp.com"
+  url = "https://resumixapi.herokuapp.com"
 } else {
   url = "http://localhost:5016"
 }
-*/
+
 function ProfilePage(props) {
   const [profile, setProfile] = useState([]);
   useEffect(() => {
@@ -15,8 +15,8 @@ function ProfilePage(props) {
       headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
     };
     axios
-      // .get(url + "/profile/getprofile/", config)
-      .get("https://resumixapi.herokuapp.com/profile/getprofile/", config)
+      .get(url + "/profile/getprofile/", config)
+      // .get("https://resumixapi.herokuapp.com/profile/getprofile/", config)
       .then((res) => {
         setProfile(res.data[0]);
       })
