@@ -35,8 +35,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "resumixapi" #Must be unique on Heroku
-          heroku_email: "emmagkim@gmail.com" #Must be the one you used on Heroku
-          team: "resumix"
+          heroku_app_name: "resumixtestapp" #Must be unique on Heroku
+          heroku_email: "louiesabillo2@gmail.com" #Must be the one you used on Heroku
           appdir: "backend"
 
