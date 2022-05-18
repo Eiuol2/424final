@@ -74,12 +74,14 @@ router.route("/login").post(async (req, res) => {
       pwd.toString(),
       retrievedUser[0].pwd.toString()
     )
+
     if (isValid) {
       // Generate token and respond
       const token = generateAccessToken(username)
       res.status(200).send(token)
     } else {
-      //Unauthorized due to invalid pwd
+      //Unauthorized due to invalid password
+      // the status code would be 401 which means unauthorized
       res.status(401).send("Unauthorized")
     }
   } else {

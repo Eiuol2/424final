@@ -55,7 +55,6 @@ function Home() {
             textAlign: "center",
           }}
         >
-          {" "}
           Here at Resumix, we provide a superior technology tool that allows you
           to quickly and easily show off your career focused portfolio.
           <br></br>
