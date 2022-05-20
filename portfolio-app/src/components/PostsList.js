@@ -49,6 +49,18 @@ function PostsList(props) {
     }
   }
 
+  async function editFunc(index) {
+    console.log("inside editFunc");
+    const post = posts[index];
+
+    const config = {
+      headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
+    };
+    history.push("/edit-post/" + post.id, config)
+  }
+
+
+
   const renderCard = (res, index) => {
     return (
       <Card style={{ width: "18rem" }} key={index} className="box">
@@ -58,6 +70,7 @@ function PostsList(props) {
           <Card.Text>{res.description}</Card.Text>
         </Card.Body>
         <Button onClick={() => delFunc(index)}> Delete </Button>
+        <Button onClick={() => editFunc(index)}> Edit </Button>
       </Card>
     );
   };
