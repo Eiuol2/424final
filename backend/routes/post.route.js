@@ -78,7 +78,8 @@ router.use("/edit-post/:id", (req, res, next) => {
 // get single post
 router.route("/edit-post/:id").get((req, res) => {
   console.log("ROUTING PROPERLY");
-  postSchema.findbyId({ userid: object.userid }, (error, data) => {
+  console.log(req.params.id);
+  postSchema.findById( req.params.id , (error, data) => {
     if (error) {
       console.log("ERROR NOT FOIMD");
       return next(error);
