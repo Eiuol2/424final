@@ -85,6 +85,7 @@ router.route("/edit-post/:id").get((req, res) => {
       return next(error);
     } else {
       res.json(data);
+      console.log(data);
       console.log("retrieved!");
     }
   });

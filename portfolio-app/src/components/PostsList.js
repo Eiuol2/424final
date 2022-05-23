@@ -49,7 +49,7 @@ function PostsList(props) {
     }
   }
 
-  async function EditFunc(index) {
+   async function EditFunc(index) {
     console.log("inside editFunc");
     const post = posts[index];
 
@@ -60,17 +60,14 @@ function PostsList(props) {
 
 
       
-      const someEventHandler = event => {
-        history.push({
+     
+       history.push({
           pathname: '/edit-post/' + post._id,
           state: { detail: post._id}
 
         });
 
-      }
-
-    someEventHandler();
-
+      
   }
 
 

@@ -8,7 +8,20 @@ import { useLocation } from "react-router-dom";
   function EditPost(props) {
     console.log("THIS IS PROPS: " + JSON.stringify(props));
     let history = useHistory();
-    const [posts, setPost] = useState([]);
+
+
+    const [posts, setPost] = useState({
+      title: "",
+      description: "",
+      content: "",
+    });
+
+    var url;
+    if (process.env.NODE_ENV == "production") {
+      url = "https://resumixapi.herokuapp.com"
+    } else {
+      url = "http://localhost:5016"
+    }
   
       const location = useLocation();
       
@@ -25,38 +38,89 @@ import { useLocation } from "react-router-dom";
       axios
          .get("http://localhost:5016/posts/edit-post/" + location.state.detail, config)
         .then((res) => {
+
+
+      //    console.log("THIS IS POSTS:" + JSON.stringify(res.data));
+
+
           setPost(res.data);
+
+          axios.delete(
+            "http://localhost:5016/posts/delete-post/" + location.state.detail,
+            config
+          );
         })
         .catch((error) => {
           console.log(error);
         });
     });
 
+    //console.log("THIS IS POSTS:" + JSON.stringify(posts.title));
+   // console.log("THIS IS POSTS:" + JSON.stringify(postObject));
+  
+    function submitForm() {
+      const posting = {
+        title: posts.title,
+        description: posts.description,
+        content: posts.content,
+      };
+      const config = {
+        headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
+      };
+      console.log(
+        "This is authorization before passing in: " + config.headers.Authorization
+      );
+      axios
+        .post(url + "/posts/create-post", posting, config)
+        // .post("https://resumixapi.herokuapp.com/posts/create-post", posting, config)
+        .then((res) => console.log(res.data));
+      setPost({ title: "", description: "", content: "" });
+
+
+
+    }
   
 
-  const renderCard = (res, index) => {
     return (
-      <Card style={{ width: "18rem" }} key={index} className="box">
-        <Card.Img variant="top" src="holder.js/100px180" src={res.content} />
-        <Card.Body>
-          <Card.Title>{res.title}</Card.Title>
-          <Card.Text>{res.description}</Card.Text>
-        </Card.Body>
-      </Card>
+      <form>
+        <label htmlFor="title">Title</label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          value={posts.title}
+          onChange={(event) =>
+            setPost({ ...posts, title: event.target.value })
+          }
+        />
+        <label htmlFor="description">Description</label>
+        <input
+          type="text"
+          name="description"
+          id="description"
+          value={posts.description}
+          onChange={(event) =>
+            setPost({ ...posts, description: event.target.value })
+          }
+        />
+        <br />
+        <label htmlFor="content">Content</label>
+        <input
+          type="text"
+          name="content"
+          id="content"
+         // value={posts.content}
+          onChange={(event) =>
+            setPost({ ...posts, content: event.target.value })
+          }
+        />
+        <br />
+        <input type="button" value="Submit" onClick={submitForm} />
+      </form>
     );
-  };
+  }
+  
 
-
-
-  return (
-    <>
-      <div className="grid">{posts.map(renderCard)}</div>
-    </>
-  );
-
-
-
-}
 
 export default EditPost;
 
