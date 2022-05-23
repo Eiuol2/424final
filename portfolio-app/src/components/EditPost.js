@@ -3,19 +3,27 @@ import axios from "axios";
 import { Card, Button } from "react-bootstrap";
 import "../styling/box.css";
 import { useHistory } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 
   function EditPost(props) {
     console.log("THIS IS PROPS: " + JSON.stringify(props));
     let history = useHistory();
     const [posts, setPost] = useState([]);
   
+      const location = useLocation();
+      
+
+
     useEffect(() => {
+      console.log(location.pathname);
+      console.log(location.state.detail);
+
+
       const config = {
         headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
       };
       axios
-         .get("http://localhost:5016/posts/" + props._id, config)
+         .get("http://localhost:5016/posts/", {_id: location.state.detail}, config)
         .then((res) => {
           setPost(res.data);
         })

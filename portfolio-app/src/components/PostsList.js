@@ -56,7 +56,21 @@ function PostsList(props) {
     const config = {
       headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
     };
-    history.push("/edit-post/" + post._id, config)
+
+
+
+      
+      const someEventHandler = event => {
+        history.push({
+          pathname: '/edit-post/' + post._id,
+          state: { detail: post._id}
+
+        });
+
+      }
+
+    someEventHandler();
+
   }
 
 
