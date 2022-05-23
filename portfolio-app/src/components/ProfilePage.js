@@ -46,15 +46,8 @@ function ProfilePage(props) {
   }, [setProfile])
 
   return (
-    <div>
-      <Container
-        fluid
-        className={"coolhome"}
-
-        //   style={{
-        //     backgroundImage: `url(${require("../assets/profilepage-bg.jpg")})`,
-        //   }}
-      >
+    <section>
+      <Container className="" fluid>
         <Particle />
         <Container className="home-content">
           <Row>
@@ -145,7 +138,7 @@ function ProfilePage(props) {
       
       <p>Username: {profile.username}</p>
       <p>Bio: {profile.bio}</p> */}
-    </div>
+    </section>
   )
 }
 
