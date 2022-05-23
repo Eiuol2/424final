@@ -5,7 +5,8 @@ import "../styling/box.css";
 import { useHistory } from "react-router-dom";
 
 
-  function editPost(props) {
+  function EditPost(props) {
+    console.log("THIS IS PROPS: " + JSON.stringify(props));
     let history = useHistory();
     const [posts, setPost] = useState([]);
   
@@ -14,8 +15,7 @@ import { useHistory } from "react-router-dom";
         headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
       };
       axios
-        // .get("http://localhost:5016/posts/", config)
-        .get(url + "/posts/", config)
+         .get("http://localhost:5016/posts/" + props._id, config)
         .then((res) => {
           setPost(res.data);
         })
@@ -50,6 +50,6 @@ import { useHistory } from "react-router-dom";
 
 }
 
-export default editPost;
+export default EditPost;
 
   

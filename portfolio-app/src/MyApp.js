@@ -113,11 +113,9 @@ function MyApp() {
                     </Route>
                   )}
                   {cookies.auth_token && (
-                    <Route
-                      exact
-                      path="/edit-post/:id"
-                      component={(props) => <EditPost {...props} />}
-                    />
+                    <Route exact path="/edit-post/:id" >
+                      <EditPost cookies={cookies} />
+                    </Route>
                   )}
                   {cookies.auth_token && (
                     <Route exact path="/posts-list">
