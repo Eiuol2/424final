@@ -23,7 +23,7 @@ import { useLocation } from "react-router-dom";
         headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
       };
       axios
-         .get("http://localhost:5016/posts/", {_id: location.state.detail}, config)
+         .get("http://localhost:5016/edit-post/" + location.state.detail, config)
         .then((res) => {
           setPost(res.data);
         })
