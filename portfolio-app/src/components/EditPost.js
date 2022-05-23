@@ -45,15 +45,15 @@ import { useLocation } from "react-router-dom";
 
           setPost(res.data);
 
-          axios.delete(
-            "http://localhost:5016/posts/delete-post/" + location.state.detail,
-            config
-          );
+           axios.delete(
+             "http://localhost:5016/posts/delete-post/" + location.state.detail,
+             config
+           );
         })
         .catch((error) => {
           console.log(error);
         });
-    });
+    }, [setPost]);
 
     //console.log("THIS IS POSTS:" + JSON.stringify(posts.title));
    // console.log("THIS IS POSTS:" + JSON.stringify(postObject));
@@ -109,7 +109,7 @@ import { useLocation } from "react-router-dom";
           type="text"
           name="content"
           id="content"
-         // value={posts.content}
+          value={posts.content}
           onChange={(event) =>
             setPost({ ...posts, content: event.target.value })
           }
