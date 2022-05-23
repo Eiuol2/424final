@@ -112,8 +112,9 @@ function MyApp() {
                   )}
                   {cookies.auth_token && (
                     <Route exact path="/">
-                      <h1>This is the profile page</h1>
+                      {/* <h1>This is the profile page</h1> */}
                       <ProfilePage cookies={cookies} />
+                      <ParticlesBg type="polygon" bg={true} />
                     </Route>
                   )}
                   {cookies.auth_token && (

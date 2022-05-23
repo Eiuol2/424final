@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "prettier": "2.6.2"
+  },
+  "dependencies": {
+    "react-bootstrap": "^2.4.0",
+    "react-tsparticles": "^2.0.6"
   }
 }
