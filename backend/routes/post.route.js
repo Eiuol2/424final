@@ -70,13 +70,23 @@ router.route("/").get(async (req, res) => {
   });
 });
 
+
+router.use("/edit-post/:id", (req, res, next) => {
+  authenticateUser(req, res, next);
+});
+
 // get single post
 router.route("/edit-post/:id").get((req, res) => {
-  postSchema.findById(req.params.id, (error, data) => {
+  console.log("ROUTING PROPERLY");
+  console.log(req.params.id);
+  postSchema.findById( req.params.id , (error, data) => {
     if (error) {
+      console.log("ERROR NOT FOIMD");
       return next(error);
     } else {
       res.json(data);
+      console.log(data);
+      console.log("retrieved!");
     }
   });
 });
