@@ -16,6 +16,12 @@ import { useLocation } from "react-router-dom";
       content: "",
     });
 
+    const [newposts, setnewPost] = useState({
+      title: "",
+      description: "",
+      content: "",
+    });
+
     var url;
     if (process.env.NODE_ENV == "production") {
       url = "https://resumixapi.herokuapp.com"
@@ -45,10 +51,10 @@ import { useLocation } from "react-router-dom";
 
           setPost(res.data);
 
-          axios.delete(
-            "http://localhost:5016/posts/delete-post/" + location.state.detail,
-            config
-          );
+  //        axios.delete(
+    //        "http://localhost:5016/posts/delete-post/" + location.state.detail,
+      //      config
+        //  );
         })
         .catch((error) => {
           console.log(error);
@@ -98,7 +104,7 @@ import { useLocation } from "react-router-dom";
           type="text"
           name="description"
           id="description"
-          value={posts.description}
+          value={newposts.description}
           onChange={(event) =>
             setPost({ ...posts, description: event.target.value })
           }
@@ -109,7 +115,7 @@ import { useLocation } from "react-router-dom";
           type="text"
           name="content"
           id="content"
-         // value={posts.content}
+          value={newposts.content}
           onChange={(event) =>
             setPost({ ...posts, content: event.target.value })
           }
