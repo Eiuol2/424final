@@ -18,6 +18,7 @@ import { useCookies } from "react-cookie";
 import Intropage from "./components/IntroPage";
 import CreateProfile from "./components/CreateProfile";
 import ProfilePage from "./components/ProfilePage";
+import EditProfile from "./components/EditProfile";
 
 function MyApp() {
   const [cookies, setCookie, removeCookie] = useCookies(["auth_token"]);
@@ -120,6 +121,11 @@ function MyApp() {
                   {cookies.auth_token && (
                     <Route exact path="/posts-list">
                       <PostsList cookies={cookies} />
+                    </Route>
+                  )}
+                  {cookies.auth_token && (
+                    <Route exact path="/edit-profile">
+                      <EditProfile cookies={cookies} />
                     </Route>
                   )}
                   {cookies.auth_token && (

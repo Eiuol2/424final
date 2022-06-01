@@ -1,5 +1,9 @@
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Card, Button } from "react-bootstrap";
+import "../styling/box.css";
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 var url;
 if (process.env.NODE_ENV == "production") {
@@ -9,6 +13,7 @@ if (process.env.NODE_ENV == "production") {
 }
 
 function ProfilePage(props) {
+  let history = useHistory();
   const [profile, setProfile] = useState([]);
   useEffect(() => {
     const config = {
@@ -25,8 +30,25 @@ function ProfilePage(props) {
       });
   }, [setProfile]);
 
+  async function editProfile() {
+    console.log("THIS IS PROPS COOKIES: " + props.cookies.auth_token);
+    
+
+    
+     
+       history.push({
+          pathname: '/edit-profile',
+          state: { detail: profile}
+
+        });
+
+      
+  }
+
+
   return (
-    <div>
+    <div> 
+       <input type="button" value="Edit" onClick={editProfile} />
       <p>Name: {profile.name}</p>
       <p>Year: {profile.year}</p>
       <p>Major: {profile.major}</p>

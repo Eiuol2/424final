@@ -60,6 +60,54 @@ function authenticateUser(req, res, next) {
   }
 }
 
+router.use("/update-profile", (req, res, next) => {
+  authenticateUser(req, res, next);
+});
+
+// create post
+router.route("/update-profile").post((req, res, next) => {
+  const object = req.body;
+   
+console.log("THIS IS THE OBJECT: " + JSON.stringify(object));
+
+  const TempId = object._id;
+  delete object._id;
+
+  profileSchema.replaceOne({ _id: TempId}, object, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+
+
+router.use("/edit-profile", (req, res, next) => {
+  authenticateUser(req, res, next);
+});
+
+// get single post
+router.route("/edit-profile").get((req, res) => {
+  console.log("ROUTING PROPERLY");
+  console.log(req.params.id);
+  postSchema.findById( req.params.id , (error, data) => {
+    if (error) {
+      console.log("ERROR NOT FOIMD");
+      return next(error);
+    } else {
+      res.json(data);
+      console.log(data);
+      console.log("retrieved!");
+    }
+  });
+});
+
+
+
+
+
 router.use("/getprofile", (req, res, next) => {
   authenticateUser(req, res, next);
 });
