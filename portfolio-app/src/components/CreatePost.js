@@ -43,7 +43,7 @@ class CreatePost extends Component {
       headers: { Authorization: `Bearer ${cookies.auth_token}` },
     };
     axios
-      .post("http://localhost:5016/posts/create-post", postObject, config)
+      .post("https://resumixapi.herokuapp.com/posts/create-post", postObject, config)
       .then((res) => console.log(res.data));
     this.setState({ title: "", description: "", content: "" });
   }

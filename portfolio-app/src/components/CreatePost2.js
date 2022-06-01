@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+var url;
+if (process.env.NODE_ENV == "production") {
+  url = "https://resumixapi.herokuapp.com"
+} else {
+  url = "http://localhost:5016"
+}
+
 function CreatePost2(props) {
   const [postObject, setPostObject] = useState({
     title: "",
@@ -28,7 +35,8 @@ function CreatePost2(props) {
       "This is authorization before passing in: " + config.headers.Authorization
     );
     axios
-      .post("http://localhost:5016/posts/create-post", posting, config)
+      .post(url + "/posts/create-post", posting, config)
+      // .post("https://resumixapi.herokuapp.com/posts/create-post", posting, config)
       .then((res) => console.log(res.data));
     setPostObject({ title: "", description: "", content: "" });
   }

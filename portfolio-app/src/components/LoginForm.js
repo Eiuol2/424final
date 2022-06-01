@@ -17,6 +17,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 
 const theme = createTheme()
 
+var url;
+if (process.env.NODE_ENV == "production") {
+  url = "https://resumixapi.herokuapp.com"
+} else {
+  url = "http://localhost:5016"
+}
+
 function LoginForm(props) {
   const [user, setUser] = useState({
     username: "",
@@ -56,7 +63,8 @@ function LoginForm(props) {
       const loginObject = { username: user.username, pwd: user.pwd }
       console.log("login object:" + JSON.stringify(loginObject))
       const response = await axios.post(
-        "http://localhost:5016/users/login",
+        // "https://resumixapi.herokuapp.com/users/login",
+        url + "/users/login",
         loginObject
       )
       props.setToken(response.data)

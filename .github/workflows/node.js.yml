@@ -35,35 +35,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "resumixapi" #Must be unique on Heroku
-          heroku_email: "emmagkim@gmail.com" #Must be the one you used on Heroku
-          appdir: backend
-  build-frontend:
-    runs-on: ${{ matrix.os }}
-    env:
-      CI: false
-    defaults:
-      run:
-        working-directory: ./portfolio-app
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+          heroku_app_name: "resumixtestapp" #Must be unique on Heroku
+          heroku_email: "louiesabillo2@gmail.com" #Must be the one you used on Heroku
+          appdir: "backend"
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-          cache-dependency-path: portfolio-app/package-lock.json
-      - run: npm ci
-      - run: npm run build --if-present
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "resumixapp" #Must be unique on Heroku
-          heroku_email: "emmagkim@gmail.com" #Must be the one you used on Heroku
-          appdir: portfolio-app

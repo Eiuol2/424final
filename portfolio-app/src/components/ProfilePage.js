@@ -5,12 +5,12 @@ import { Container, Row, Col } from "react-bootstrap"
 import { makeStyles } from "@material-ui/core"
 import "../style.css"
 
-// var url;
-// if (process.env.NODE_ENV == "production") {
-//   url = "https://resumixapi.herokuapp.com"
-// } else {
-//   url = "http://localhost:5016"
-// }
+var url;
+if (process.env.NODE_ENV == "production") {
+  url = "https://resumixapi.herokuapp.com"
+} else {
+  url = "http://localhost:5016"
+}
 // const useStyles = makeStyles({
 //   homeSection: {
 //     position: "relative",
@@ -36,7 +36,8 @@ function ProfilePage(props) {
       headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
     }
     axios
-      .get("http://localhost:5016/profile/getprofile/", config)
+      .get(url + "/profile/getprofile/", config)
+      // .get("https://resumixapi.herokuapp.com/profile/getprofile/", config)
       .then((res) => {
         setProfile(res.data[0])
       })

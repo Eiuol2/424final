@@ -2,6 +2,13 @@ import React, { useState } from "react"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 
+var url;
+if (process.env.NODE_ENV == "production") {
+  url = "https://resumixapi.herokuapp.com"
+} else {
+  url = "http://localhost:5016"
+}
+
 function SignupForm(props) {
   const [user, setUser] = useState({
     username: "",
@@ -37,7 +44,8 @@ function SignupForm(props) {
         pwd: user.pwd,
       }
       const response = await axios.post(
-        "http://localhost:5016/users/signup",
+        // "https://resumixapi.herokuapp.com/users/signup",
+        url + "/users/signup",
         signupObject
       )
       props.setToken(response.data)

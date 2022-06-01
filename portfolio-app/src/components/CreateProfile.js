@@ -3,6 +3,13 @@ import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
+var url;
+if (process.env.NODE_ENV == "production") {
+  url = "https://resumixapi.herokuapp.com"
+} else {
+  url = "http://localhost:5016"
+}
+
 function CreateProfile(props) {
   const history = useHistory();
 
@@ -46,7 +53,8 @@ function CreateProfile(props) {
         username: user.username,
       };
       const response = await axios.post(
-        "http://localhost:5016/profile/createprofile",
+        // "https://resumixapp.herokuapi.com/profile/createprofile",
+        url + "/profile/createprofile",
         profileObject
       );
       console.log("This is backend response: " + JSON.stringify(response.data));

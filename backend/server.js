@@ -56,7 +56,7 @@ app.use("/profile", profileRoute);
 // PORT
 const port = 5016;
 
-const server = app.listen(process.env.PORT || port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });
 

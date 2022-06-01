@@ -4,6 +4,13 @@ import { Card, Button } from "react-bootstrap";
 import "../styling/box.css";
 import { useHistory } from "react-router-dom";
 
+var url;
+if (process.env.NODE_ENV == "production") {
+  url = "https://resumixapi.herokuapp.com"
+} else {
+  url = "http://localhost:5016"
+}
+
 function PostsList(props) {
   let history = useHistory();
   const [posts, setPost] = useState([]);
@@ -13,7 +20,8 @@ function PostsList(props) {
       headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
     };
     axios
-      .get("http://localhost:5016/posts/", config)
+      // .get("http://localhost:5016/posts/", config)
+      .get(url + "/posts/", config)
       .then((res) => {
         setPost(res.data);
       })
