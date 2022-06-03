@@ -7,6 +7,8 @@ const dotenv = require("dotenv");
 const createError = require("http-errors");
 const mongodb = require('mongodb');
 const fileUpload = require('express-fileupload')
+const fs = require('fs')
+
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -116,7 +118,8 @@ function getFiles(res) {
               }
               else {
                   let buffer = doc[0].file.buffer
-                  fs.writeFileSync('uploadedImage.jpg', buffer)
+                  console.log("This is: " + doc[0].name)
+                  fs.writeFileSync('uploadedImage.pdf', buffer)
               }
           })
           res.redirect('/')
