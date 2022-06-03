@@ -16,6 +16,12 @@ import { useLocation } from "react-router-dom";
       content: "",
     });
 
+    const [newposts, setnewPost] = useState({
+      title: "",
+      description: "",
+      content: "",
+    });
+
     var url;
     if (process.env.NODE_ENV == "production") {
       url = "https://resumixapi.herokuapp.com"
@@ -98,7 +104,7 @@ import { useLocation } from "react-router-dom";
           type="text"
           name="description"
           id="description"
-          value={posts.description}
+          value={newposts.description}
           onChange={(event) =>
             setPost({ ...posts, description: event.target.value })
           }

@@ -1,9 +1,13 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
 import Particle from "../Particle"
 import { Container, Row, Col } from "react-bootstrap"
 import { makeStyles } from "@material-ui/core"
 import "../style.css"
+import React, { useState, useEffect } from "react";
+import { Card, Button } from "react-bootstrap";
+import "../styling/box.css";
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 var url;
 if (process.env.NODE_ENV == "production") {
@@ -29,8 +33,8 @@ if (process.env.NODE_ENV == "production") {
 // })
 
 function ProfilePage(props) {
-  //const classes = useStyles()
-  const [profile, setProfile] = useState([])
+  let history = useHistory();
+  const [profile, setProfile] = useState([]);
   useEffect(() => {
     const config = {
       headers: { Authorization: `Bearer ${props.cookies.auth_token}` },
@@ -45,6 +49,22 @@ function ProfilePage(props) {
         console.log("There's an error: " + error)
       })
   }, [setProfile])
+
+  async function editProfile() {
+    console.log("THIS IS PROPS COOKIES: " + props.cookies.auth_token);
+    
+
+    
+     
+       history.push({
+          pathname: '/edit-profile',
+          state: { detail: profile}
+
+        });
+
+      
+  }
+
 
   return (
     <section>
@@ -135,10 +155,7 @@ function ProfilePage(props) {
           </Col>
         </Row>
       </Container>
-      {/* <p>Name: {profile.name}</p>
-      
-      <p>Username: {profile.username}</p>
-      <p>Bio: {profile.bio}</p> */}
+      <input type="button" value="Edit" onClick={editProfile} />
     </section>
   )
 }

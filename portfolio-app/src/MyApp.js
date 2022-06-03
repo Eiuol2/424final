@@ -17,6 +17,7 @@ import Home from "./Home"
 import ParticlesBg from "particles-bg"
 import "./style.css"
 import WebFont from "webfontloader"
+import EditProfile from "./components/EditProfile";
 
 function MyApp() {
   const [cookies, setCookie, removeCookie] = useCookies(["auth_token"])
@@ -135,6 +136,11 @@ function MyApp() {
                   {cookies.auth_token && (
                     <Route exact path="/posts-list">
                       <PostsList cookies={cookies} />
+                    </Route>
+                  )}
+                  {cookies.auth_token && (
+                    <Route exact path="/edit-profile">
+                      <EditProfile cookies={cookies} />
                     </Route>
                   )}
                   {cookies.auth_token && (
