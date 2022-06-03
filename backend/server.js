@@ -5,25 +5,22 @@ let bodyParser = require("body-parser");
 let dbConfig = require("./database/db");
 const dotenv = require("dotenv");
 const createError = require("http-errors");
-const mongodb = require('mongodb');
-const fileUpload = require('express-fileupload')
-const fs = require('fs')
-
+const mongodb = require("mongodb");
+const fileUpload = require("express-fileupload");
+const fs = require("fs");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const path = require("path");
+const crypto = require("crypto");
+const multer = require("multer");
+const { GridFsStorage } = require("multer-gridfs-storage");
+const Grid = require("gridfs-stream");
+const methodOverride = require("method-override");
 
-const path = require('path');
-const crypto = require('crypto')
-const multer = require('multer')
-const { GridFsStorage } = require('multer-gridfs-storage')
-const Grid = require('gridfs-stream')
-const methodOverride = require('method-override')
-
-const mongoClient = mongodb.MongoClient
-const binary = mongodb.Binary
-
+const mongoClient = mongodb.MongoClient;
+const binary = mongodb.Binary;
 
 dotenv.config();
 
@@ -38,7 +35,7 @@ const profileRoute = require("../backend/routes/profile.route");
 const { connect } = require("http2");
 // const router = require("../backend/routes/post.route");
 
-const router = express.Router()
+const router = express.Router();
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
@@ -55,7 +52,7 @@ mongoose
     }
   );
 
-const conn = mongoose.createConnection(dbConfig.db)
+const conn = mongoose.createConnection(dbConfig.db);
 const app = express();
 app.use(bodyParser.json());
 app.use(
@@ -69,66 +66,67 @@ app.use("/resume", resumeRoute);
 app.use("/users", userRoute);
 app.use("/profile", profileRoute);
 
-router.get("/", (req, res) => {
-  res.sendFile('./index.html', { root: __dirname })
-})
+app.use(bodyParser.urlencoded({ extended: false }));
 
-router.get("/download", (req, res) => {
-  getFiles(res)
-})
+app.use(bodyParser.json());
 
-app.use(fileUpload())
+// Set EJS as templating engine
 
-router.post("/upload", (req, res) => {
-  let file = { name: req.body.name, file: binary(req.files.uploadedFile.data) }
-  insertFile(file, res)
-})
+app.set("view engine", "ejs");
 
-function insertFile(file, res) {
-  mongoClient.connect(dbConfig.db, { useNewUrlParser: true }, (err, client) => {
-      if (err) {
-          return err
-      }
-      else {
-          let db = client.db('uploadDB')
-          let collection = db.collection('files')
-          try {
-              collection.insertOne(file)
-              console.log('File Inserted')
-          }
-          catch (err) {
-              console.log('Error while inserting:', err)
-          }
-          res.redirect('/')
-      }
 
-  })
-}
-function getFiles(res) {
-  mongoClient.connect(dbConfig.db, { useNewUrlParser: true }, (err, client) => {
-      if (err) {
-          return err
-      }
-      else {
-          let db = client.db('uploadDB')
-          let collection = db.collection('files')
-          collection.find({}).toArray((err, doc) => {
-              if (err) {
-                  console.log('err in finding doc:', err)
-              }
-              else {
-                  let buffer = doc[0].file.buffer
-                  console.log("This is: " + doc[0].name)
-                  fs.writeFileSync('uploadedImage.pdf', buffer)
-              }
-          })
-          res.redirect('/')
-      }
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
 
-  })
-}
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now());
+  },
+});
 
-app.use("/", router)
+var upload = multer({ storage: storage });
+
+var imgModel = require("./Models/model");
+
+app.get("/", (req, res) => {
+  imgModel.find({}, (err, items) => {
+    if (err) {
+      console.log(err);
+
+      res.status(500).send("An error occurred", err);
+    } else {
+      res.render("imagesPage", { items: items });
+    }
+  });
+});
+
+app.post("/", upload.single("image"), (req, res, next) => {
+  var obj = {
+    name: req.body.name,
+
+    desc: req.body.desc,
+
+    img: {
+      data: fs.readFileSync(
+        path.join(__dirname + "/uploads/" + req.file.filename)
+      ),
+
+      contentType: "image/png",
+    },
+  };
+
+  imgModel.create(obj, (err, item) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // item.save();
+
+      res.redirect("/");
+    }
+  });
+});
+
 
 
 // Middleware
@@ -140,7 +138,7 @@ app.use("/", router)
 // let gfs;
 
 // conn.once('open', () => {
-  // gfs = Grid(conn.db, mongoose.mongo);
+// gfs = Grid(conn.db, mongoose.mongo);
 
 //   gfs.collection('uploads');
 // })
