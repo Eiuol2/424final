@@ -72,7 +72,7 @@ function MyApp() {
               )}
               {cookies.auth_token && (
                 <Nav>
-                  <Link to={"/resume"} className="nav-link">
+                  <Link to={{ pathname: "http://www.localhost:5016"}} target="_parent" rel="noopener noreferrer" className="nav-link">
                     Resume
                   </Link>
                 </Nav>
