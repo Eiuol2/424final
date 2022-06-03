@@ -52,7 +52,7 @@ html {
 .home-section {
   position: relative;
   z-index: -1;
-  background-image: var(--image-gradient), url(./assets/profilepage-bg.jpg);
+  background-image: var(--image-gradient), url(./Assets/profilepage-bg.jpg);
   background-position: top center;
   background-repeat: no-repeat;
   /* padding-bottom: 30px !important;

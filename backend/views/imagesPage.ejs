@@ -10,14 +10,14 @@
   </head>
 
   <body>
-    <h1>To Upload Image on mongoDB</h1>
+    <h1>Resume</h1>
 
     <hr />
 
     <div>
       <form action="/" method="POST" enctype="multipart/form-data">
         <div>
-          <label for="name">Image Title</label>
+          <label for="name">Resume Title</label>
 
           <input
             type="text"
@@ -30,7 +30,7 @@
         </div>
 
         <div>
-          <label for="desc">Image Description</label>
+          <label for="desc">Resume Description</label>
 
           <textarea
             id="desc"
@@ -44,7 +44,7 @@
         </div>
 
         <div>
-          <label for="image">Upload Image</label>
+          <label for="image">Upload Resume</label>
 
           <input type="file" id="image" name="image" value="" required />
         </div>
@@ -57,24 +57,23 @@
 
     <hr />
 
-    <h1>Uploaded Images</h1>
+    <h1>Uploaded Resume</h1>
 
     <div>
       <% items.forEach(function(image) { %>
 
       <div>
         <div>
-          <img
-            src="data:image/<%=image.img.contentType%>;base64,
-
- <%=image.img.data.toString('base64')%>"
-          />
-
           <div>
             <h5><%= image.name %></h5>
 
             <p><%= image.desc %></p>
           </div>
+          <img
+            src="data:image/<%=image.img.contentType%>;base64,
+
+ <%=image.img.data.toString('base64')%>"
+          />
         </div>
       </div>
 

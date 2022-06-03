@@ -1,105 +1,104 @@
-let express = require("express");
-let mongoose = require("mongoose");
-let cors = require("cors");
-let bodyParser = require("body-parser");
-let dbConfig = require("./database/db");
-const dotenv = require("dotenv");
-const createError = require("http-errors");
-const mongodb = require("mongodb");
-const fileUpload = require("express-fileupload");
-const fs = require("fs");
+let express = require("express")
+let mongoose = require("mongoose")
+let cors = require("cors")
+let bodyParser = require("body-parser")
+let dbConfig = require("./database/db")
+const dotenv = require("dotenv")
+const createError = require("http-errors")
+const mongodb = require("mongodb")
+const fileUpload = require("express-fileupload")
+const fs = require("fs")
 
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 
-const path = require("path");
-const crypto = require("crypto");
-const multer = require("multer");
-const { GridFsStorage } = require("multer-gridfs-storage");
-const Grid = require("gridfs-stream");
-const methodOverride = require("method-override");
+const path = require("path")
+const crypto = require("crypto")
+const multer = require("multer")
+const { GridFsStorage } = require("multer-gridfs-storage")
+const Grid = require("gridfs-stream")
+const methodOverride = require("method-override")
 
-const mongoClient = mongodb.MongoClient;
-const binary = mongodb.Binary;
+const mongoClient = mongodb.MongoClient
+const binary = mongodb.Binary
 
-dotenv.config();
+dotenv.config()
 
 // Express Route
-const postRoute = require("../backend/routes/post.route");
+const postRoute = require("../backend/routes/post.route")
 
-const resumeRoute = require("../backend/routes/resume.route");
+const resumeRoute = require("../backend/routes/resume.route")
 
-const userRoute = require("../backend/routes/user.route");
+const userRoute = require("../backend/routes/user.route")
 
-const profileRoute = require("../backend/routes/profile.route");
-const { connect } = require("http2");
+const profileRoute = require("../backend/routes/profile.route")
+const { connect } = require("http2")
 // const router = require("../backend/routes/post.route");
 
-const router = express.Router();
+const router = express.Router()
 
 // Connecting mongoDB Database
-mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise
 mongoose
   .connect(dbConfig.db, {
     useNewUrlParser: true,
   })
   .then(
     () => {
-      console.log("Database sucessfully connected!");
+      console.log("Database sucessfully connected!")
     },
     (error) => {
-      console.log("Could not connect to database : " + error);
+      console.log("Could not connect to database : " + error)
     }
-  );
+  )
 
-const conn = mongoose.createConnection(dbConfig.db);
-const app = express();
-app.use(bodyParser.json());
+const conn = mongoose.createConnection(dbConfig.db)
+const app = express()
+app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
-);
-app.use(cors());
-app.use("/posts", postRoute);
-app.use("/resume", resumeRoute);
-app.use("/users", userRoute);
-app.use("/profile", profileRoute);
+)
+app.use(cors())
+app.use("/posts", postRoute)
+app.use("/resume", resumeRoute)
+app.use("/users", userRoute)
+app.use("/profile", profileRoute)
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 // Set EJS as templating engine
 
-app.set("view engine", "ejs");
-
+app.set("view engine", "ejs")
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads");
+    cb(null, "uploads")
   },
 
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
+    cb(null, file.fieldname + "-" + Date.now())
   },
-});
+})
 
-var upload = multer({ storage: storage });
+var upload = multer({ storage: storage })
 
-var imgModel = require("./Models/model");
+var imgModel = require("./Models/model")
 
 app.get("/", (req, res) => {
   imgModel.find({}, (err, items) => {
     if (err) {
-      console.log(err);
+      console.log(err)
 
-      res.status(500).send("An error occurred", err);
+      res.status(500).send("An error occurred", err)
     } else {
-      res.render("imagesPage", { items: items });
+      res.render("imagesPage", { items: items })
     }
-  });
-});
+  })
+})
 
 app.post("/", upload.single("image"), (req, res, next) => {
   var obj = {
@@ -114,20 +113,18 @@ app.post("/", upload.single("image"), (req, res, next) => {
 
       contentType: "image/png",
     },
-  };
+  }
 
   imgModel.create(obj, (err, item) => {
     if (err) {
-      console.log(err);
+      console.log(err)
     } else {
       // item.save();
 
-      res.redirect("/");
+      res.redirect("/")
     }
-  });
-});
-
-
+  })
+})
 
 // Middleware
 // app.use(methodOverride('_method'))
@@ -263,19 +260,19 @@ app.post("/", upload.single("image"), (req, res, next) => {
 //---------------------------------------------JWT RELATED---------------------------------------------------------------
 
 // PORT
-const port = 5016;
+const port = 5016
 
 app.listen(process.env.PORT || port, () => {
-  console.log(`Listening at http://localhost:${port}`);
-});
+  console.log(`Listening at http://localhost:${port}`)
+})
 
 // 404 Error
 app.use((req, res, next) => {
-  next(createError(404));
-});
+  next(createError(404))
+})
 
 app.use(function (err, req, res, next) {
-  console.error("This isn't it: " + err.message);
-  if (!err.statusCode) err.statusCode = 500;
-  res.status(err.statusCode).send(err.message);
-});
+  console.error("This isn't it: " + err.message)
+  if (!err.statusCode) err.statusCode = 500
+  res.status(err.statusCode).send(err.message)
+})
