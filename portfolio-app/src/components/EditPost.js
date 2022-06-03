@@ -104,7 +104,7 @@ import { useLocation } from "react-router-dom";
           type="text"
           name="description"
           id="description"
-          value={newposts.description}
+          value={posts.description}
           onChange={(event) =>
             setPost({ ...posts, description: event.target.value })
           }
