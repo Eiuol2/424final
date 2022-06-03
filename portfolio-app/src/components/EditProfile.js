@@ -85,7 +85,7 @@ import { useLocation } from "react-router-dom";
         // .post("https://resumixapi.herokuapp.com/posts/create-post", posting, config)
         .then((res) => console.log(res.data));
 
-
+        history.push("/");
 
 
     }
