@@ -31,4 +31,4 @@ https://www.figma.com/file/DXXMAJIoWjVr1j71jwJN4N/CSC-308?node-id=26%3A28
 
 Code Coverage Report: code_coverage
 
-Product Spec [ OUTDATED ]: https://docs.google.com/document/d/1sFl_Mthd5bsZGS-gXiFi0ASYL_JtXQKf_T1Owb1oKvk/edit
+Product Spec : https://docs.google.com/document/d/1sFl_Mthd5bsZGS-gXiFi0ASYL_JtXQKf_T1Owb1oKvk/edit?usp=sharing
