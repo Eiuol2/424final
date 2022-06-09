@@ -1,9 +1,33 @@
 # Resume-Portfolio-Template
 
+
+NOTE FOR PROFESSOR: There is a reason why we do not have much in the projects and issues tab. During the week where we learned how to deploy to Heroku we had to switch the repo to an organization, where I ( Louie ) could make Andrew and Emma administrators, which previously was not allowed in my personal repo. As a result, most of the sprint information and issues were left in the previous personal repo which will be linked below:
+
+https://github.com/Eiuol2/Resume-Portfolio-Template
+
+Set Up
+
+Download/copy repo to local machine
+Backend
+
+Navigate to Resumix/backend
+
+Do npm -i to install all necessary packages
+
+Do "npm run dev" to start backend
+
+FrontEnd
+
+Navigate to Resumix/portfolio-app
+
+Do npm -i to install all necessary packages
+
+Do "npm start" to start frontend
+
+After all above instructions have been completed a window should automatically open to localhost:3000 with all working components.
+
 https://www.figma.com/file/DXXMAJIoWjVr1j71jwJN4N/CSC-308?node-id=26%3A28
 
-Code Coverage Report:
-![code_coverage](https://user-images.githubusercontent.com/81539172/158482866-28fd16f6-b960-451b-9c17-19f88a51ce72.png)
+Code Coverage Report: code_coverage
 
-Product Spec:
-https://docs.google.com/document/d/1sFl_Mthd5bsZGS-gXiFi0ASYL_JtXQKf_T1Owb1oKvk/edit
+Product Spec [ OUTDATED ]: https://docs.google.com/document/d/1sFl_Mthd5bsZGS-gXiFi0ASYL_JtXQKf_T1Owb1oKvk/edit
